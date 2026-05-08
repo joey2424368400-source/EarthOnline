@@ -170,7 +170,7 @@ struct QuestDetailView: View {
     private var rewardsPanel: some View {
         HStack(spacing: 12) {
             rewardChip("⭐ +\(quest.xpReward) EXP", Theme.xpAmber)
-            rewardChip("🪙 +\(quest.goldReward)G", Theme.gold)
+            rewardChip("💰 +¥\(quest.wealthReward)", Theme.gold)
             rewardChip("📈 +1 \(quest.attributeReward.rawValue)", Theme.green)
         }
         .font(.system(.caption, design: .monospaced))

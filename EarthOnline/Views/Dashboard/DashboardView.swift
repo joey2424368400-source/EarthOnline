@@ -96,9 +96,12 @@ struct DashboardView: View {
             }
 
             HStack(spacing: 16) {
-                Label("🪙 \(engine.player.gold)", systemImage: "")
+                Label("💰 ¥\(engine.player.wealth)", systemImage: "")
                     .font(.system(.caption, design: .monospaced))
                     .foregroundColor(Theme.gold)
+                Label("📊 ¥\(engine.player.monthlyIncome)/月", systemImage: "")
+                    .font(.system(.caption, design: .monospaced))
+                    .foregroundColor(Theme.green)
                 Label("🔥 \(engine.player.consecutiveDays)天连续", systemImage: "")
                     .font(.system(.caption, design: .monospaced))
                     .foregroundColor(Theme.orange)

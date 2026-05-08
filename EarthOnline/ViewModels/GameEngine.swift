@@ -29,10 +29,10 @@ final class GameEngine: ObservableObject {
             player.consecutiveDays = 1
         }
         player.lastActiveDate = Date()
-        player.gold += 10 * min(player.consecutiveDays, 30)
+        player.wealth += 10 * min(player.consecutiveDays, 30)
 
         if player.consecutiveDays % 7 == 0 {
-            player.gold += 100
+            player.wealth += 100
         }
 
         updateWorldMood()
@@ -65,7 +65,7 @@ final class GameEngine: ObservableObject {
         quest.completedAt = Date()
 
         player.currentXP += quest.xpReward
-        player.gold += quest.goldReward
+        player.wealth += quest.wealthReward
 
         switch quest.attributeReward {
         case .strength:     player.strength += 1
@@ -94,7 +94,7 @@ final class GameEngine: ObservableObject {
     func abandonQuest(_ quest: Quest) {
         quest.status = .failed
         player.hp = max(0, player.hp - quest.hpPenalty / 2)
-        player.gold = max(0, player.gold - quest.goldReward / 2)
+        player.wealth = max(0, player.wealth - quest.wealthReward / 2)
         updateWorldMood()
         try? context.save()
     }
@@ -171,8 +171,8 @@ final class GameEngine: ObservableObject {
             case "level_10":    unlock = player.level >= 10
             case "level_50":    unlock = player.level >= 50
             case "level_100":   unlock = player.level >= 100
-            case "gold_1000":   unlock = player.gold >= 1000
-            case "gold_10000":  unlock = player.gold >= 10000
+            case "gold_1000":   unlock = player.wealth >= 1000
+            case "gold_10000":  unlock = player.wealth >= 10000
             case "all_attr_20": unlock = player.totalAttributes >= 80
             default: break
             }
