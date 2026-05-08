@@ -3,6 +3,7 @@ import SwiftData
 
 struct DashboardView: View {
     @State var engine: GameEngine
+    @State private var showCustomize = false
     @Query(filter: #Predicate<Quest> { $0.statusRaw != "已完成" && $0.statusRaw != "已失败" },
             sort: \Quest.deadline)
     private var activeQuests: [Quest]
@@ -25,8 +26,21 @@ struct DashboardView: View {
             .background(Theme.bg)
             .navigationTitle("🌍 地球Online")
             .toolbarColorScheme(.dark, for: .navigationBar)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        showCustomize = true
+                    } label: {
+                        Image(systemName: "person.crop.circle")
+                            .foregroundColor(Theme.accent)
+                    }
+                }
+            }
         }
         .onAppear { engine.dailyCheckIn() }
+        .sheet(isPresented: $showCustomize) {
+            CharacterCustomizeView(engine: engine)
+        }
     }
 
     // MARK: - Player Header
@@ -39,9 +53,10 @@ struct DashboardView: View {
                     .fill(Theme.panel)
                     .frame(width: 80, height: 80)
                     .overlay(Circle().stroke(Theme.accent, lineWidth: 2))
-                Text(avatarForLevel(engine.player.level))
+                Text(engine.player.avatarEmoji)
                     .font(.system(size: 40))
             }
+            .onTapGesture { showCustomize = true }
 
             Text(engine.player.name)
                 .font(.system(.title2, design: .monospaced))
@@ -160,19 +175,6 @@ struct DashboardView: View {
                 engine.dailyCheckIn()
                 engine.applyDailyDecay()
             }
-        }
-    }
-
-    private func avatarForLevel(_ level: Int) -> String {
-        switch level {
-        case 0..<5:   return "🧑‍💼"
-        case 5..<10:  return "🧙"
-        case 10..<20: return "🦸"
-        case 20..<30: return "🦹"
-        case 30..<50: return "🧝"
-        case 50..<70: return "🧛"
-        case 70..<100: return "👑"
-        default:       return "🐉"
         }
     }
 }

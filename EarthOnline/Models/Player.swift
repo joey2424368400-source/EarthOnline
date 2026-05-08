@@ -19,11 +19,13 @@ final class Player {
     var worldMood: String // sunny / cloudy / rainy / stormy
     var consecutiveDays: Int
     var lastActiveDate: Date?
+    var avatarEmoji: String
     var titles: [String]
     var createdAt: Date
 
     init(name: String = "勇者") {
         self.name = name
+        self.avatarEmoji = "🧑‍💼"
         self.level = 1
         self.currentXP = 0
         self.xpToNextLevel = 100
