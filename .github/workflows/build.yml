@@ -1,0 +1,46 @@
+name: Build IPA
+
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set Xcode version
+        run: sudo xcode-select -s /Applications/Xcode.app
+
+      - name: Generate Xcode project
+        run: |
+          brew install xcodegen
+          xcodegen generate
+
+      - name: Build Archive
+        run: |
+          xcodebuild archive \
+            -project EarthOnline.xcodeproj \
+            -scheme EarthOnline \
+            -archivePath ./build/EarthOnline.xcarchive \
+            -destination "generic/platform=iOS" \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO
+
+      - name: Create IPA
+        run: |
+          mkdir -p ./build/Payload
+          cp -R ./build/EarthOnline.xcarchive/Products/Applications/EarthOnline.app ./build/Payload/
+          cd ./build
+          zip -r EarthOnline.ipa Payload/
+          cd ..
+
+      - name: Upload IPA
+        uses: actions/upload-artifact@v4
+        with:
+          name: EarthOnline.ipa
+          path: ./build/EarthOnline.ipa
+          retention-days: 30
