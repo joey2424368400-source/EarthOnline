@@ -15,7 +15,6 @@ final class Player {
     var intelligence: Int
     var charisma: Int
     var endurance: Int
-    var wealth: Int           // ¥ 人民币
     var worldMood: String     // sunny / cloudy / rainy / stormy
     var consecutiveDays: Int
     var lastActiveDate: Date?
@@ -37,7 +36,6 @@ final class Player {
         self.intelligence = 5
         self.charisma = 5
         self.endurance = 5
-        self.wealth = 0
         self.worldMood = "sunny"
         self.consecutiveDays = 0
         self.lastActiveDate = nil

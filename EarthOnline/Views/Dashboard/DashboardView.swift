@@ -95,14 +95,11 @@ struct DashboardView: View {
                 statItem("🛡️ 耐力", engine.player.endurance, Theme.blue)
             }
 
-            HStack(spacing: 16) {
-                Label("💰 ¥\(engine.player.wealth)", systemImage: "")
-                    .font(.system(.caption, design: .monospaced))
-                    .foregroundColor(Theme.gold)
-                Label("📊 ¥\(engine.player.monthlyIncome)/月", systemImage: "")
+            HStack(spacing: 12) {
+                Label("¥\(engine.player.monthlyIncome)/月", systemImage: "💼")
                     .font(.system(.caption, design: .monospaced))
                     .foregroundColor(Theme.green)
-                Label("🔥 \(engine.player.consecutiveDays)天连续", systemImage: "")
+                Label("\(engine.player.consecutiveDays)天", systemImage: "🔥")
                     .font(.system(.caption, design: .monospaced))
                     .foregroundColor(Theme.orange)
             }

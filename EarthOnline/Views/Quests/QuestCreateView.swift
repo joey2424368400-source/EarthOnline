@@ -13,7 +13,6 @@ struct QuestCreateView: View {
     @State private var monsterName = ""
     @State private var pomodoroRequired = 1
     @State private var xpReward = 50
-    @State private var wealthReward = 20
     @State private var attributeReward: AttributeType = .endurance
     @State private var visionText = ""
     @State private var visionImage = "🌟"
@@ -104,8 +103,6 @@ struct QuestCreateView: View {
         Section {
             Stepper("经验值: \(xpReward) EXP", value: $xpReward, in: 10...1000, step: 10)
                 .foregroundColor(Theme.text)
-            Stepper("💰 ¥\(wealthReward)", value: $wealthReward, in: 5...500, step: 5)
-                .foregroundColor(Theme.text)
             Picker("属性奖励", selection: $attributeReward) {
                 ForEach(AttributeType.allCases, id: \.self) { a in
                     Text(a.rawValue).tag(a)
@@ -173,7 +170,6 @@ struct QuestCreateView: View {
             monsterName: monsterName.isEmpty ? defaultMonster : monsterName,
             pomodoroRequired: pomodoroRequired,
             xpReward: xpReward,
-            wealthReward: wealthReward,
             attributeReward: attributeReward,
             visionText: visionText,
             visionImage: visionImage,

@@ -36,7 +36,6 @@ final class Quest {
     var pomodoroRequired: Int    // 需要几个番茄钟
     var pomodoroCompleted: Int
     var xpReward: Int
-    var wealthReward: Int          // ¥
     var attributeRewardRaw: String
     var visionText: String       // 愿景描述
     var visionImage: String      // 愿景emoji
@@ -81,7 +80,6 @@ final class Quest {
         monsterName: String = "拖延小怪",
         pomodoroRequired: Int = 1,
         xpReward: Int = 50,
-        wealthReward: Int = 20,
         attributeReward: AttributeType = .endurance,
         visionText: String = "",
         visionImage: String = "🌟",
@@ -101,7 +99,6 @@ final class Quest {
         self.pomodoroRequired = pomodoroRequired
         self.pomodoroCompleted = 0
         self.xpReward = xpReward
-        self.wealthReward = wealthReward
         self.attributeRewardRaw = attributeReward.rawValue
         self.visionText = visionText
         self.visionImage = visionImage
